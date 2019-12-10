@@ -30,7 +30,8 @@ QSqlQueryModel *DBManager::loadEntries()
     QSqlQueryModel* model = new QSqlQueryModel();
 
     QSqlQuery qry;
-    qry.prepare("select name, type, dailySalesReport.ID, purchaseDate, item, price, quantity "
+    qry.prepare("select name, type, dailySalesReport.ID, purchaseDate, item, price, quantity, "
+                "\"$\" || printf(\"%.2f\", (price * quantity) * 1.0775) as \"Total (7.75%)\" "
                 "from Customers, dailySalesReport where Customers.ID = dailySalesReport.ID;");
 
     if(!qry.exec())
@@ -393,7 +394,7 @@ void DBManager::AddToCustomersTable(QString name, QString id, QString type, int 
 
 void DBManager::AddToDailySalesReport(QString id, QString item, int quantity)
 {
-    QString purchaseDate = "12/09/2019"; // will be the default purchase date
+    QString purchaseDate = "12/11/2019"; // will be the default purchase date
     QSqlQuery qry;
 
     double price = DBManager::GetItemPrice(item);  // will return the price of a given item
@@ -430,6 +431,24 @@ double DBManager::GetItemPrice(QString itemName)
     return itemPrice;
 
 }
+
+// This function gets the ID of a particular customer
+int DBManager::GetIDFromCustomer(QString customerName)
+{
+   QSqlQuery qry;
+   int id = 0;
+
+   qry.prepare("SELECT ID from Customers where name = \""+customerName+"\"");
+
+   qry.exec();
+   if(qry.next())
+   {
+       id = qry.value(0).toInt();
+   }
+
+   return id;
+}
+
 
                     //---------------------STORY 4 and 5 CODE------------------------//
 

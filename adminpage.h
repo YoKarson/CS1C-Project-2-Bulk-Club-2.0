@@ -37,7 +37,7 @@ public:
 
      void ShowQuantityInComboBox();                     // Shows quantities in qty combo box
 
-     void ShowCustomerTypeInComboBox();                 // Shows customer type in customer combo box
+     void ShowCustomerNamesInComboBox(QSqlQueryModel *model);  // Shows customer type in customer combo box
      // End story 7 code //
 
 private slots:
