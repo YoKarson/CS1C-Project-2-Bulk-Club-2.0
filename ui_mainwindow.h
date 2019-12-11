@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.6
+** Created by: Qt User Interface Compiler version 5.13.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -31,12 +31,13 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *loginPushBtn;
     QPushButton *clearPushBtn;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QGridLayout *gridLayout;
     QLabel *usernameLabel;
     QLineEdit *usernameLineEdit;
     QLabel *passwordLabel;
     QLineEdit *passwordLineEdit;
+    QLabel *label;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -44,12 +45,13 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(799, 585);
+        MainWindow->setStyleSheet(QString::fromUtf8("background-color: rgb(239, 252, 255);"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         layoutWidget = new QWidget(centralwidget);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(320, 212, 166, 25));
+        layoutWidget->setGeometry(QRect(260, 240, 166, 25));
         horizontalLayout_3 = new QHBoxLayout(layoutWidget);
         horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         horizontalLayout_3->setContentsMargins(0, 0, 0, 0);
@@ -63,38 +65,47 @@ public:
 
         horizontalLayout_3->addWidget(clearPushBtn);
 
-        widget = new QWidget(centralwidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(320, 139, 211, 51));
-        gridLayout = new QGridLayout(widget);
+        layoutWidget1 = new QWidget(centralwidget);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(230, 140, 211, 51));
+        gridLayout = new QGridLayout(layoutWidget1);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        usernameLabel = new QLabel(widget);
+        usernameLabel = new QLabel(layoutWidget1);
         usernameLabel->setObjectName(QString::fromUtf8("usernameLabel"));
 
         gridLayout->addWidget(usernameLabel, 0, 0, 1, 1);
 
-        usernameLineEdit = new QLineEdit(widget);
+        usernameLineEdit = new QLineEdit(layoutWidget1);
         usernameLineEdit->setObjectName(QString::fromUtf8("usernameLineEdit"));
+        usernameLineEdit->setStyleSheet(QString::fromUtf8(""));
 
         gridLayout->addWidget(usernameLineEdit, 0, 1, 1, 1);
 
-        passwordLabel = new QLabel(widget);
+        passwordLabel = new QLabel(layoutWidget1);
         passwordLabel->setObjectName(QString::fromUtf8("passwordLabel"));
 
         gridLayout->addWidget(passwordLabel, 1, 0, 1, 1);
 
-        passwordLineEdit = new QLineEdit(widget);
+        passwordLineEdit = new QLineEdit(layoutWidget1);
         passwordLineEdit->setObjectName(QString::fromUtf8("passwordLineEdit"));
         passwordLineEdit->setInputMethodHints(Qt::ImhHiddenText|Qt::ImhNoAutoUppercase|Qt::ImhNoPredictiveText|Qt::ImhSensitiveData);
         passwordLineEdit->setEchoMode(QLineEdit::Password);
 
         gridLayout->addWidget(passwordLineEdit, 1, 1, 1, 1);
 
+        label = new QLabel(centralwidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(140, 10, 441, 81));
+        QFont font;
+        font.setPointSize(14);
+        font.setBold(true);
+        font.setWeight(75);
+        label->setFont(font);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 17));
+        menubar->setGeometry(QRect(0, 0, 799, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -107,11 +118,12 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
-        loginPushBtn->setText(QApplication::translate("MainWindow", "Login", nullptr));
-        clearPushBtn->setText(QApplication::translate("MainWindow", "Clear", nullptr));
-        usernameLabel->setText(QApplication::translate("MainWindow", "Username: ", nullptr));
-        passwordLabel->setText(QApplication::translate("MainWindow", "Password: ", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        loginPushBtn->setText(QCoreApplication::translate("MainWindow", "Login", nullptr));
+        clearPushBtn->setText(QCoreApplication::translate("MainWindow", "Clear", nullptr));
+        usernameLabel->setText(QCoreApplication::translate("MainWindow", "Username: ", nullptr));
+        passwordLabel->setText(QCoreApplication::translate("MainWindow", "Password: ", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "WELCOME TO BULK CLUB STAFF LOGIN!", nullptr));
     } // retranslateUi
 
 };

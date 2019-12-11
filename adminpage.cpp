@@ -12,10 +12,7 @@ AdminPage::AdminPage(QWidget *parent) :
     ui->stackedWidget->setCurrentWidget(ui->adminHomePage);
     setupConnections();
 
-    // Sets the items for item combo box
-    ShowItemsInComboBox(databaseObj.loadItemsOnly());
     ShowQuantityInComboBox();   // sets the number of quantities for qty combo box
-    ShowCustomerTypeInComboBox();   // sets the types of customers in customer combo box
 }
 
 AdminPage::~AdminPage()
@@ -35,11 +32,16 @@ void AdminPage::setupConnections()
 void AdminPage::ChangeToaddCustomers()
 {
     ui->stackedWidget->setCurrentWidget(ui->addCustomer);
+    ui->addName->clear();
+    ui->addID->clear();
 }
 
 void AdminPage::ChangeToaddItem()
 {
      ui->stackedWidget->setCurrentWidget(ui->addItem);
+     ui->addItemName->clear();
+     ui->addItemPrice->clear();
+     ui->addItemQty->clear();
 }
 
 
@@ -263,6 +265,10 @@ void AdminPage::ChangeToCreatePurchasesPage()        // changes to create purcha
 {
     ui->stackedWidget->setCurrentWidget(ui->CreatePurchasesPage);
 
+    ShowCustomerNamesInComboBox(databaseObj.loadNamesOnly());   // sets the names of customers in customer combo box
+    // Sets the items for item combo box
+    ShowItemsInComboBox(databaseObj.loadItemsOnly());
+
     QLineEdit *lineEdit = new QLineEdit;             // Item is used for item combo box
     lineEdit->setPlaceholderText("SELECT ITEMS");    // Sets default date for combobox(will turn into lineedit)
 
@@ -270,12 +276,6 @@ void AdminPage::ChangeToCreatePurchasesPage()        // changes to create purcha
     ui->pickItemComboBox->setLineEdit(lineEdit);
     ui->pickItemComboBox->setCurrentText("");
 
-    // Clears all the line edits
-    ui->addNameLineEdit->clear();
-    ui->addIdLineEdit->clear();
-    ui->addMonthLineEdit->clear();
-    ui->addDayLineEdit->clear();
-    ui->addYearLineEdit->clear();
 
     // sets new place holder/line edit text for quantity combo box
     lineEdit = new QLineEdit;
@@ -285,9 +285,10 @@ void AdminPage::ChangeToCreatePurchasesPage()        // changes to create purcha
 
      // sets new place holder/line edit text for customer combo box
     lineEdit = new QLineEdit;
-    lineEdit->setPlaceholderText("SELECT TYPE");
-    ui->customerTypeComboBox->setLineEdit(lineEdit);
-    ui->customerTypeComboBox->setCurrentText("");
+    lineEdit->setPlaceholderText("SELECT NAME");
+    ui->customerNameComboBox->setLineEdit(lineEdit);
+    ui->customerNameComboBox->setCurrentText("");
+
 }
 
 void AdminPage::ShowItemsInComboBox(QSqlQueryModel *model)  // sets the item combo box to be the item values from inventory table
@@ -306,99 +307,43 @@ void AdminPage::ShowQuantityInComboBox()
 }
 
 // Sets the types of customers in customers combo box
-void AdminPage::ShowCustomerTypeInComboBox()
+void AdminPage::ShowCustomerNamesInComboBox(QSqlQueryModel *model)
 {
-    QString regular = "Regular";
-    QString executive = "Executive";
-
-    ui->customerTypeComboBox->addItem(regular);
-     ui->customerTypeComboBox->addItem(executive);
-
+    ui->customerNameComboBox->setModel(model);
 }
 
 // Story 7 slot, will allow purchases to happen after admin clicks on the button
 void AdminPage::on_createPurchasePushBtn_clicked()
 {
-    QString name, item, type, id;
-    int month, day, year, quantity;
-    bool valid = true;
-    QIntValidator v(100000, 200000, this);  // Used for checking id from line edit, will only accept id between 100000 to 200000
-    int pos = 0;
+      QString name, item;
+      int quantity, id;
+      QSqlQuery qry;
 
-    // INPUT - Obtains input from line edits/combo boxes from each variables' respective values
-    name = ui->addNameLineEdit->text();
-    item = ui->pickItemComboBox->currentText();
-    month = ui->addMonthLineEdit->text().toInt();
-    day = ui->addDayLineEdit->text().toInt();
-    year = ui->addYearLineEdit->text().toInt();
-    quantity = ui->pickQtyLComboBox->currentText().toInt();
-    type = ui->customerTypeComboBox->currentText();
-    id = ui->addIdLineEdit->text();
+      // INPUT - Receives input from the combo boxes and stores them in the respective variable
+      name = ui->customerNameComboBox->currentText();
+      item = ui->pickItemComboBox->currentText();
+      quantity = ui->pickQtyLComboBox->currentText().toInt();
+      id = databaseObj.GetIDFromCustomer(name); // Calls on databaseObj function to get the id from the customer
 
-    // PROCESSING - Checks for valid conditions
-    // Validates id, if the value entered does not meet the specifications, then will set valid to false
-    if(!v.validate(id, pos))
-    {
-        valid = false;
-    }
-    // First check if any of the line edits/combo boxes are empty, if they are then valid is false
-    if(name == "" || item == "" || type == "" || ui->addMonthLineEdit->text() == "" ||
-       ui->addDayLineEdit->text() == "" || ui->addYearLineEdit->text() == "" ||
-       ui->pickQtyLComboBox->currentText() == "" || id == "")
-    {
-        valid = false;
-    }
+      // If any 3 of the combo boxes are empty, then an error message will appear
+      if(name == "" || item == "" || ui->pickQtyLComboBox->currentText() == "")
+      {
+          QMessageBox::warning(this, "Invalid", "Please input valid information");
+      }
+      // Otherwise, new information is added to the dailySalesReport table and the quantity in inventory of the specified item will increment
+      else
+      {
+          databaseObj.AddToDailySalesReport(QString::number(id), item, quantity);              // adds new info to dailySalesReport table
+          QMessageBox::information(this, "Success", "Purchase has been created");
 
-    // Checks for valid month, if valid month, then will check for valid days of each month
-    if(month < 1 || month > 12)
-    {
-        valid = false;
-    }
-    else
-    {
-        if(month == 2)
-        {
-            if(day < 1 || day > 28)
-            {
-                valid = false;
-            }
-        }
-        else if(month % 2 == 0)
-        {
-            if(day < 1 || day > 31)
-            {
-                valid = false;
-            }
-        }
-        else
-        {
-            if(day < 1 || day > 30)
-            {
-                valid = false;
-            }
-        }
-    }
+          qry.prepare("UPDATE inventory set quantity = quantity + "+QString::number(quantity)+" where item = \""+item+"\";");
+          if(!qry.exec())
+          {
+              qDebug() << "Error loading values to database";
+          }
 
-    // Checks for valid year
-    if(year < 2019 || year > 2023)
-    {
-        valid = false;
-    }
-
-
-    // If the final value of valid is false, then it will display an error message
-    // Otherwise, the new customer purchase will be stored in the database along with a successful message
-    if(valid == false)
-    {
-       QMessageBox::warning(this, "Invalid", "Please input valid information");
-    }
-    else
-    {
-        databaseObj.AddToCustomersTable(name, id, type, month, day, year);  // adds new info to customers table
-        databaseObj.AddToDailySalesReport(id, item, quantity);              // adds new info to dailySalesReport table
-        QMessageBox::information(this, "Success", "Purchase has been created");
-        AdminPage::ChangeToAdminHomePage();
-    }
+          AdminPage::ChangeToAdminHomePage();
+      }
 }
 //---------------------END of story 7 code ----------------------------------------//
 
@@ -465,25 +410,17 @@ void AdminPage::on_ChangeMembership_clicked()
 
             updateExe.prepare("update customers set type = 'Executive' where name = '" + search + "'");
             updateReg.prepare("update customers set type = 'Regular'   where name = '" + search + "'");
-            find.prepare("select type from customers where name = '" + search + "'");
+            find.prepare("select type from customers where type = 'Executive' and name = '" + search + "'" );
+
+            rowCount = 0;
             find.exec();
-            if(find.next())
-            {
-                QString aType;
-                aType = qry.value(0).toString();
-            }
+            rowCount = find.at() + 1;
+            qDebug() << "find count = " << rowCount;
 
-            QSqlRecord record;
-            record = qry.record();
+//            QString type;
+//            type = databaseObj.getType(type);
 
-            while(qry.next())
-            {
-                record.value(data).toString();
-            }
-
-
-
-            if(true)
+            if(rowCount == 0)
             {
                 updateReg.exec();
                 qDebug() << "updating to regular";

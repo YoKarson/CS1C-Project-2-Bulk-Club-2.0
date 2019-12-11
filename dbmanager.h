@@ -136,6 +136,9 @@ public:
     // This function returns the item price based on the itemName
     double GetItemPrice(QString itemName);
 
+    // This function gets the ID of a particular customer
+    int GetIDFromCustomer(QString customerName);
+
     //----------------END of Story 7 code-------------------//
 
     //---------------------STORY 4 and 5 CODE---------------//

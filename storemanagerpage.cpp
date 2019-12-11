@@ -8,18 +8,6 @@ StoreManagerPage::StoreManagerPage(QWidget *parent) :
     ui->setupUi(this);
     setupConnections(); // Calls setupConnections() function to set up connections
     ui->stackedWidget->setCurrentWidget(ui->storeManagerHomePage);  // If a StoreManager class object is called, then the dafault page will be the home page
-
-    // When the constructor is called, the ShowDatesInComboBox() function is called to automatically set the combo box for date input
-     ShowDatesInComboBox(databaseObj.loadDateEntriesOnly());
-
-    // When the constructor is called, the ShowItemsInComboBox() function is called to automatically set the combo box for item name input
-     ShowItemsInComboBox(databaseObj.loadItemsOnly());
-
-     // When the constructor is called, the ShowNamesInComboBox() function is called to automatically set the combo box for member name input
-      ShowNamesInComboBox(databaseObj.loadNamesOnly());
-
-      // When the constructor is called, the ShowExpMonthsInComboBox() function is called to automatically set the combo box for expiration month inputs
-      ShowExpMonthsInComboBox(databaseObj.loadExpirationMonthsIntoComboBox());
 }
 
 StoreManagerPage::~StoreManagerPage()
@@ -269,6 +257,10 @@ void StoreManagerPage::ChangeToDailySalesReportsPage()
     QString stringRegularCount;
     int executiveCount = 0;
     int regularCount = 0;
+
+    // When the constructor is called, the ShowDatesInComboBox() function is called to automatically set the combo box for date input
+      ShowDatesInComboBox(databaseObj.loadDateEntriesOnly());
+
     QLineEdit *lineEdit = new QLineEdit;
     lineEdit->setPlaceholderText("SELECT DATE");    // Sets default date for combobox(will turn into lineedit)
 
@@ -309,6 +301,12 @@ void StoreManagerPage::GoToHomePage()
 // Sets current widget to total purchases page
 void StoreManagerPage::ChangeToTotalPurchasesPage()
 {
+    // When the constructor is called, the ShowItemsInComboBox() function is called to automatically set the combo box for item name input
+    ShowItemsInComboBox(databaseObj.loadItemsOnly());
+
+     // When the constructor is called, the ShowNamesInComboBox() function is called to automatically set the combo box for member name input
+    ShowNamesInComboBox(databaseObj.loadNamesOnly());
+
     QLineEdit *lineEdit = new QLineEdit;             // Item is used for item combo box
     lineEdit->setPlaceholderText("SELECT ITEMS");    // Sets default date for combobox(will turn into lineedit)
 
@@ -336,6 +334,9 @@ void StoreManagerPage::ChangeToTotalPurchasesPage()
 // Changes to rebate and expiration page and will set all the widgets to be their intended features
 void StoreManagerPage::ChangeToRebateAndExpPage()
 {
+    // When the constructor is called, the ShowExpMonthsInComboBox() function is called to automatically set the combo box for expiration month inputs
+    ShowExpMonthsInComboBox(databaseObj.loadExpirationMonthsIntoComboBox());
+
     ui->stackedWidget->setCurrentWidget(ui->rebateAndExpPage);
 
     QLineEdit *lineEdit = new QLineEdit;             // Item is used for item combo box

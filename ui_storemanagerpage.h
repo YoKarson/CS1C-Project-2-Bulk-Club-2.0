@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'storemanagerpage.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.6
+** Created by: Qt User Interface Compiler version 5.13.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -93,7 +93,7 @@ public:
         storeManagerHomePage->setObjectName(QString::fromUtf8("storeManagerHomePage"));
         label = new QLabel(storeManagerHomePage);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(30, 30, 281, 31));
+        label->setGeometry(QRect(140, 30, 451, 71));
         QFont font1;
         font1.setPointSize(12);
         font1.setBold(true);
@@ -246,7 +246,7 @@ public:
 
         retranslateUi(StoreManagerPage);
 
-        stackedWidget->setCurrentIndex(1);
+        stackedWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(StoreManagerPage);
@@ -254,35 +254,35 @@ public:
 
     void retranslateUi(QMainWindow *StoreManagerPage)
     {
-        StoreManagerPage->setWindowTitle(QApplication::translate("StoreManagerPage", "MainWindow", nullptr));
-        label->setText(QApplication::translate("StoreManagerPage", "STORE MANAGER PAGE", nullptr));
-        dailySalesReportsPushBtn->setText(QApplication::translate("StoreManagerPage", "Go to Daily Sales Reports", nullptr));
-        totalPurchasesPushBtn->setText(QApplication::translate("StoreManagerPage", "Go to Total Purchases", nullptr));
-        rebatePushBtn->setText(QApplication::translate("StoreManagerPage", "Go to Rebate and Expiration Page", nullptr));
-        label_11->setText(QApplication::translate("StoreManagerPage", "REBATE AND EXPIRATION PAGE", nullptr));
-        rebateBackBtn->setText(QApplication::translate("StoreManagerPage", "Back", nullptr));
-        displayRebatePushBtn->setText(QApplication::translate("StoreManagerPage", "Display Rebate", nullptr));
-        label_12->setText(QApplication::translate("StoreManagerPage", "Enter Expiration Month:", nullptr));
-        expMonthEnterBtn->setText(QApplication::translate("StoreManagerPage", "Enter", nullptr));
-        label_2->setText(QApplication::translate("StoreManagerPage", "DAILY SALES REPORTS PAGE", nullptr));
-        dailySalesBackBtn->setText(QApplication::translate("StoreManagerPage", "Back", nullptr));
-        label_3->setText(QApplication::translate("StoreManagerPage", "Enter a date:", nullptr));
-        dateEnterBtn->setText(QApplication::translate("StoreManagerPage", "Enter", nullptr));
-        label_4->setText(QApplication::translate("StoreManagerPage", "Total Revenue (7.75%): ", nullptr));
-        displayByExecBtn->setText(QApplication::translate("StoreManagerPage", "Display by Executive", nullptr));
-        displayByRegBtn->setText(QApplication::translate("StoreManagerPage", "Display by Regular", nullptr));
-        label_5->setText(QApplication::translate("StoreManagerPage", "Number of Executive Members: ", nullptr));
-        label_6->setText(QApplication::translate("StoreManagerPage", "Number of Regular Members: ", nullptr));
-        displayAllInfoBtn->setText(QApplication::translate("StoreManagerPage", "DISPLAY ALL", nullptr));
-        label_7->setText(QApplication::translate("StoreManagerPage", "TOTAL PURCHASES PAGE", nullptr));
-        totalPurchasesBackBtn->setText(QApplication::translate("StoreManagerPage", "Back", nullptr));
-        label_8->setText(QApplication::translate("StoreManagerPage", "Grand Total (7.75%)", nullptr));
-        displayByItemBtn->setText(QApplication::translate("StoreManagerPage", "Display by Item", nullptr));
-        displayByAllMembersBtn->setText(QApplication::translate("StoreManagerPage", "Display by all Members", nullptr));
-        enterItemPushBtn->setText(QApplication::translate("StoreManagerPage", "Enter Item", nullptr));
-        enterNamePushBtn->setText(QApplication::translate("StoreManagerPage", "Enter name", nullptr));
-        label_9->setText(QApplication::translate("StoreManagerPage", "Enter Item name:", nullptr));
-        label_10->setText(QApplication::translate("StoreManagerPage", "Enter Member name:", nullptr));
+        StoreManagerPage->setWindowTitle(QCoreApplication::translate("StoreManagerPage", "MainWindow", nullptr));
+        label->setText(QCoreApplication::translate("StoreManagerPage", "WELCOME TO THE STORE MANAGER PAGE!", nullptr));
+        dailySalesReportsPushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Go to Daily Sales Reports", nullptr));
+        totalPurchasesPushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Go to Total Purchases", nullptr));
+        rebatePushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Go to Rebate and Expiration Page", nullptr));
+        label_11->setText(QCoreApplication::translate("StoreManagerPage", "REBATE AND EXPIRATION PAGE", nullptr));
+        rebateBackBtn->setText(QCoreApplication::translate("StoreManagerPage", "Back", nullptr));
+        displayRebatePushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display Rebate", nullptr));
+        label_12->setText(QCoreApplication::translate("StoreManagerPage", "Enter Expiration Month:", nullptr));
+        expMonthEnterBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter", nullptr));
+        label_2->setText(QCoreApplication::translate("StoreManagerPage", "DAILY SALES REPORTS PAGE", nullptr));
+        dailySalesBackBtn->setText(QCoreApplication::translate("StoreManagerPage", "Back", nullptr));
+        label_3->setText(QCoreApplication::translate("StoreManagerPage", "Enter a date:", nullptr));
+        dateEnterBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter", nullptr));
+        label_4->setText(QCoreApplication::translate("StoreManagerPage", "Total Revenue (7.75%): ", nullptr));
+        displayByExecBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by Executive", nullptr));
+        displayByRegBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by Regular", nullptr));
+        label_5->setText(QCoreApplication::translate("StoreManagerPage", "Number of Executive Members: ", nullptr));
+        label_6->setText(QCoreApplication::translate("StoreManagerPage", "Number of Regular Members: ", nullptr));
+        displayAllInfoBtn->setText(QCoreApplication::translate("StoreManagerPage", "DISPLAY ALL", nullptr));
+        label_7->setText(QCoreApplication::translate("StoreManagerPage", "TOTAL PURCHASES PAGE", nullptr));
+        totalPurchasesBackBtn->setText(QCoreApplication::translate("StoreManagerPage", "Back", nullptr));
+        label_8->setText(QCoreApplication::translate("StoreManagerPage", "Grand Total (7.75%)", nullptr));
+        displayByItemBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by Item", nullptr));
+        displayByAllMembersBtn->setText(QCoreApplication::translate("StoreManagerPage", "Display by all Members", nullptr));
+        enterItemPushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter Item", nullptr));
+        enterNamePushBtn->setText(QCoreApplication::translate("StoreManagerPage", "Enter name", nullptr));
+        label_9->setText(QCoreApplication::translate("StoreManagerPage", "Enter Item name:", nullptr));
+        label_10->setText(QCoreApplication::translate("StoreManagerPage", "Enter Member name:", nullptr));
     } // retranslateUi
 
 };
